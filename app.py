@@ -1,33 +1,39 @@
-#application created to query the btc address database
-
+# app.py
 from flask import Flask, request, jsonify
-import psycopg2
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
+import os
+from create_db import BitcoinAddress  # Ensure create_db.py is in the same directory
 
 app = Flask(__name__)
 
-def get_address_data(address):
-    conn = psycopg2.connect("dbname=test user=postgres password=secret")
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM btc_addresses WHERE address = %s", (address,))
-    result = cur.fetchone()
-    cur.close()
-    conn.close()
-    return result
+Base = declarative_base()
 
-@app.route('/getaddress', methods=['GET'])
-def address():
-    address = request.args.get('address')
-    data = get_address_data(address)
-    if data:
+# Database setup
+DATABASE_URL = os.getenv('HEROKU_POSTGRESQL_CHARCOAL_URL')
+engine = create_engine(DATABASE_URL)
+Session = sessionmaker(bind=engine)
+
+@app.route('/get_address', methods=['GET'])
+def get_address():
+    address_query = request.args.get('address')
+    if not address_query:
+        return jsonify({"error": "No address provided"}), 400
+
+    session = Session()
+    address_data = session.query(BitcoinAddress).filter_by(address=address_query).first()
+    session.close()
+
+    if address_data:
         return jsonify({
-            "address": data[0],
-            "times_in_mixer": data[1],
-            "criminal_activities": data[2],
-            "high_volume_transactions": data[3],
-            "last_active_date": str(data[4])
+            "address": address_data.address,
+            "times_in_mixer": address_data.times_in_mixer,
+            "criminal_activities": address_data.criminal_activities,
+            "high_volume_transactions": address_data.high_volume_transactions,
+            "last_active_date": address_data.last_active_date.isoformat()
         })
     else:
-        return "Address not found", 404
+        return jsonify({"error": "Address not found"}), 404
 
 if __name__ == '__main__':
     app.run(debug=True)
