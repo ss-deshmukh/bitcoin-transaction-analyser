@@ -11,6 +11,13 @@ Base = declarative_base()
 
 # Database setup
 DATABASE_URL = os.getenv('HEROKU_POSTGRESQL_CHARCOAL_URL')
+
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+if not DATABASE_URL:
+    raise ValueError("No DATABASE_URL found. Please check your configuration.")
+
 engine = create_engine(DATABASE_URL)
 Session = sessionmaker(bind=engine)
 
