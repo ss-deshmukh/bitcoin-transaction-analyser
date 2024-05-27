@@ -6,12 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from create_db import BitcoinAddress  # Importing the BitcoinAddress class from create_db.py
 
-# Connect to the database
-DATABASE_URL = os.getenv('HEROKU_POSTGRESQL_CHARCOAL_URL')  # Make sure to set this environment variable
-
-# Adjust the URL if it starts with 'postgres://' to be 'postgresql://'
-if DATABASE_URL.startswith("postgres://"):
-    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+from config import DATABASE_URL
 
 if not DATABASE_URL:
     raise ValueError("No DATABASE_URL found. Please check your configuration.")
