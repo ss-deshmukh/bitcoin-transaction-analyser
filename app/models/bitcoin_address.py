@@ -1,5 +1,6 @@
-from sqlalchemy import Column, String, Integer, Date
 from app import Base
+from sqlalchemy import Column, Date, Integer, String
+
 
 class BitcoinAddress(Base):
     __tablename__ = 'btc_addresses'
