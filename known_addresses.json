@@ -1,0 +1,27 @@
+[
+    {
+        "address": "1Exch1xXxxXxxXxxXxxXxxXxxXxxXxxXxxX",
+        "entity_name": "Binance",
+        "entity_type": "Exchange"
+    },
+    {
+        "address": "1Exch2xXxxXxxXxxXxxXxxXxxXxxXxxXxxX",
+        "entity_name": "Coinbase",
+        "entity_type": "Exchange"
+    },
+    {
+        "address": "1Exch3xXxxXxxXxxXxxXxxXxxXxxXxxXxxX",
+        "entity_name": "Mr.100",
+        "entity_type": "Unknown"
+    },
+    {
+        "address": "1Exch4xXxxXxxXxxXxxXxxXxxXxxXxxXxxX",
+        "entity_name": "Microstrategy",
+        "entity_type": "Company"
+    },
+    {
+        "address": "1Exch5xXxxXxxXxxXxxXxxXxxXxxXxxXxxX",
+        "entity_name": "Satoshi",
+        "entity_type": "Person"
+    }
+]
