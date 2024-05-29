@@ -1,0 +1,9 @@
+[
+    {
+        "tx_id": "tx2",
+        "from_address": "1VictimXxxXxxXxxXxxXxxXxxXxxXxxXxxX",
+        "to_address": "1ThiefXxxXxxXxxXxxXxxXxxXxxXxxXxxX",
+        "amount": 1.5,
+        "timestamp": "2024-05-25T11:00:00Z"
+    }
+]
